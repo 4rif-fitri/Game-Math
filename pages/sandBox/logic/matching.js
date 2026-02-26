@@ -244,7 +244,10 @@ let newReset = () => {
 }
 
 let newHint = () => {
-	count = 0
+	if (countHint == 0) return
+	countHint--
+	document.querySelector(".padan-hint").textContent = `(${countHint}) Hint`
+	let count = 0
 	items.forEach(element => {
 		if (count == 3) return
 
@@ -258,20 +261,21 @@ let newHint = () => {
 	})
 }
 
-
+let countHint
 let initMatching = () => {
 	console.log("mach");
 	
 	let data = JSON.parse(localStorage.getItem("padan"))
 	items = document.querySelectorAll("#padan-item");
 	moniter3 = document.getElementById("moniter3")
-	
+	countHint = data.hint
 	number1 = parseInt(data.array[0])
 	number2 = parseInt(data.array[1])
 	sum = number1 + number2
 	
 	render()
 	document.getElementById("pop-up-padan").style.display = "flex"
+	document.querySelector(".padan-hint").textContent = `(${countHint}) Hint`
 
 	arrayRandom[0] = sum
 	for (let index = 1; index < 6; index++) {

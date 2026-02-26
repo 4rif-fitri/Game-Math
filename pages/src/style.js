@@ -7,11 +7,10 @@ body{
 	height: 100vh;
 }
 .card-container{
-	background-color: #fff;
 	width: min(90vw,20rem);
-	height: 20rem;
+	height: 25rem;
 	border: 3px solid black;
-
+	aspect-ratio: 1/1;
 	display: grid;
 	grid-template-rows: repeat(4,1fr);
 	border-radius: 14px;

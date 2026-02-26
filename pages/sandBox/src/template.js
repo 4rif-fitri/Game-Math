@@ -61,7 +61,6 @@ let temp = `
 					<article class="btn-group">
 						<button id="reset">Reset</button>
 						<button id="hint">Hint</button>
-						<!-- <button id="semak">Semak</button> -->
 					</article>
 				</article>
 			</div>
@@ -106,13 +105,12 @@ let temp = `
 					</div>
 				</div>
 			</article>
-						<article class="btn-container">
-							<article class="btn-group">
-								<button id="reset" class="hiden">Reset</button>
-								<button id="hint" class="padan-hint">Hint</button>
-								<!-- <button id="semak">Semak</button> -->
-							</article>
-						</article>
+				<article class="btn-container">
+					<article class="btn-group">
+						<button id="reset" class="hiden">Reset</button>
+						<button id="hint" class="padan-hint">Hint</button>
+					</article>
+				</article>
 			</div>
 		</div>
 

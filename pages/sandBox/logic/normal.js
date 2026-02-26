@@ -1,12 +1,5 @@
 let items = document.querySelectorAll("#padan-item");
 let moniter3 = document.getElementById("moniter3")
-let count = {
-	hint: 5,
-	currentQuestion: 1,
-	totalQuestion: 3,
-	currentScore: 0,
-	totalScore: 3,
-}
 let flag = {
 	isPickHint: false,
 	isPickReset: false
@@ -14,6 +7,7 @@ let flag = {
 let number1 = 0
 let number2 = 0;
 let sum = 0;
+let countHint
 
 let delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -106,7 +100,11 @@ let newReset = () => {
 }
 
 let newHint = () => {
-	count = 0
+	if (countHint == 0) return
+	countHint--
+
+	document.querySelector(".padan-hint").textContent = `(${countHint}) Hint`
+	let count = 0
 	items.forEach(element => {
 		if (count == 3) return
 
@@ -123,18 +121,21 @@ let newHint = () => {
 
 
 let initNormal = () => {
-	document.getElementById("pop-up-padan").style.display = "flex"
-	moniter3 = document.getElementById("moniter3")
-	items = document.querySelectorAll("#padan-item");
-
-
+	
+	
 	let data = JSON.parse(localStorage.getItem("normal"))
-
+	
 	number1 = parseInt(data.array[0])
 	number2 = parseInt(data.array[1])
 	sum = number1 + number2
-
+	
+	countHint = data.hint
+	
 	render()
+	document.getElementById("pop-up-padan").style.display = "flex"
+	moniter3 = document.getElementById("moniter3")
+	items = document.querySelectorAll("#padan-item");
+	document.querySelector(".padan-hint").textContent = `(${countHint}) Hint`
 
 	let y = []
 	y[0] = sum

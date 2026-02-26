@@ -147,6 +147,7 @@ let handlePickNumber = (e) => {
 			localStorage.setItem("normal", JSON.stringify({
 				"array": array.numMethodpick,
 				"base": n1 + n2 < 20 ? 10 : 20,
+				"hint":count.hint,
 			}))
 
 			initNormal()
@@ -156,7 +157,10 @@ let handlePickNumber = (e) => {
 				stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 				stackGame.elementPick[0].remove()
 				count.currentQuestion++
+				count.currentScore++
+				updateStatus()
 			});
+
 			unPickMethod()
 
 		} else if (stackGame.pickMethod == "Borrow") {
@@ -165,6 +169,7 @@ let handlePickNumber = (e) => {
 				localStorage.setItem("borrow", JSON.stringify({
 					"array": array.numMethodpick,
 					"base": n1 + n2 < 20 ? 10 : 20,
+					"hint": count.hint,
 				}))
 
 				initBorrow()
@@ -173,7 +178,9 @@ let handlePickNumber = (e) => {
 					// console.log("Jawapan:", e.detail.ans);
 					stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 					stackGame.elementPick[0].remove()
+					count.currentScore++
 					count.currentQuestion++
+					updateStatus()
 				});
 				unPickMethod()
 
@@ -183,13 +190,12 @@ let handlePickNumber = (e) => {
 			unPickMethod()
 
 		} else if (stackGame.pickMethod == "Matching") {
-			console.log(n1 + n2);
 			let sum = n1 + n2
-			console.log(sum % 5 == 0);
 			
 			if (sum % 5 == 0) {
 				localStorage.setItem("padan", JSON.stringify({
 					"array": array.numMethodpick,
+					"hint": count.hint,
 				}))
 				
 				initMatching()
@@ -198,7 +204,9 @@ let handlePickNumber = (e) => {
 					// console.log("Jawapan:", e.detail.ans);
 					stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 					stackGame.elementPick[0].remove()
+					count.currentScore++
 					count.currentQuestion++
+					updateStatus()
 				});
 				unPickMethod()
 
@@ -206,7 +214,6 @@ let handlePickNumber = (e) => {
 				updateTextMessage(`upss ${max} dan ${min} dapat nombor tak mudah`)
 			}
 			unPickMethod()
-			updateStatus()
 		}
 	}
 }
@@ -244,6 +251,10 @@ let homePage = () => {
 }
 
 let updateStatus = () => {
+	console.log(document.getElementById("lavel"));
+	console.log(document.getElementById("hintCount"));
+	console.log(document.getElementById("score"));
+	
 	document.getElementById("lavel").textContent = `${count.currentQuestion}/${count.totalQuestion}`
 	document.getElementById("hintCount").textContent = `${count.hint}`
 	document.getElementById("score").textContent = `${count.currentScore}/${count.totalScore}`
