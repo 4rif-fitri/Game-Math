@@ -1,0 +1,26 @@
+*{padding: 0;margin: 0;box-sizing: border-box;}
+
+@font-face {
+	font-family: aaa;
+	src: url("../font/FredokaOne-Regular.ttf");
+}
+
+html {
+	letter-spacing: .5px;
+	font-size: 13px;
+	font-family: aaa, Arial, Helvetica, sans-serif;
+}
+
+body {
+	background-image: linear-gradient(rgb(115, 184, 207), white, white, rgb(255, 247, 209));
+	background-repeat: no-repeat;
+	height: auto;
+	/* default untuk mobile */
+}
+
+/* desktop */
+@media (min-width: 768px) {
+	body {
+		height: 100vh;
+	}
+}
