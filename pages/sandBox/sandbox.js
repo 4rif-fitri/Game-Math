@@ -296,6 +296,7 @@ let initSandBox = () => {
 	ui.btnsMethed = document.querySelectorAll(".option-action button")
 
 	random()
+	updateStatus()
 	ui.btnsMethed.forEach(btn => btn.addEventListener("click", handleMethodPick))
 	document.querySelectorAll("#home").forEach(btn => {
 		addListerner(btn, "click", homePage)

@@ -271,6 +271,9 @@ let cencal = () => {
 		}
 	}));
 }
+let updateMessage = (text) => {
+	document.getElementById("textMessage").textContent = text
+}
 let countHint
 let initMatching = () => {
 	console.log("mach");
@@ -284,6 +287,7 @@ let initMatching = () => {
 	sum = number1 + number2
 	
 	render()
+	updateMessage("Berapa Hasilnya")
 	document.getElementById("pop-up-padan").style.display = "flex"
 	document.querySelector(".padan-hint").textContent = `(${countHint}) Hint`
 

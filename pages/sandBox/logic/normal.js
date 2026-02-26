@@ -38,6 +38,10 @@ let render = () => {
 	document.getElementById("moniter2").textContent = number2
 }
 
+let updateMessage = (text) => {
+	document.getElementById("textMessage").textContent = text
+}
+
 let handleSum = async (e) => {
 	if (flag.isPick) return
 	flag.isPick = true
@@ -146,6 +150,7 @@ let initNormal = () => {
 	countHint = data.hint
 	
 	render()
+	updateMessage("Berapa Hasilnya")
 	document.getElementById("pop-up-padan").style.display = "flex"
 	moniter3 = document.getElementById("moniter3")
 	items = document.querySelectorAll("#padan-item");
