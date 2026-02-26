@@ -167,6 +167,7 @@ let ramalan = () => {
 
 
 let pollTextSum = () => {
+	let picked 
 	picked = flow.jumlah;
 	arrayChoice[0] = picked;
 	arrayChoice[1] = picked + 1;
