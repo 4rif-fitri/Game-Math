@@ -119,7 +119,7 @@ let temp = `
 					<div class="title">
 						<center>
 							<h1>Sand Box</h1>
-							<p>Selesaikan dan Guna Teknik Yang diberikan</p>
+							<p>Open Teknik Penyelesaian</p>
 						</center>
 					</div>
 					<div class="board">
@@ -168,7 +168,6 @@ let temp = `
 					<p class="soalan-item boxSoalan" data-id="3">
 						<span class="number">10</span>
 						<span class="simbol">+</span>
-
 					</p>
 				</div>
 			</article>

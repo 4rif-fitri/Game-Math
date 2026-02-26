@@ -12,14 +12,14 @@ html {
 }
 
 body {
-	background-image: linear-gradient(150deg,rgb(115, 184, 207), white, white, rgb(255, 235, 136));
+	background-image: linear-gradient(130deg,rgb(115, 184, 207), white, white, rgb(255, 235, 136));
 	background-repeat: no-repeat;
 	height: auto;
 	/* default untuk mobile */
 }
 
 /* desktop */
-@media (min-width: 768px) {
+@media (min-width: 300px) {
 	body {
 		height: 100vh;
 	}
