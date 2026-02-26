@@ -12,7 +12,7 @@ html {
 }
 
 body {
-	background-image: linear-gradient(rgb(115, 184, 207), white, white, rgb(255, 247, 209));
+	background-image: linear-gradient(150deg,rgb(115, 184, 207), white, white, rgb(255, 235, 136));
 	background-repeat: no-repeat;
 	height: auto;
 	/* default untuk mobile */
