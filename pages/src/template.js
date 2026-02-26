@@ -2,7 +2,7 @@ let temp = `
 
 <div class="card-container">
 		<div class="cart-item">
-			<h1>Method</h1>
+			<h1>Math Is Fun</h1>
 		</div>
 		<div class="cart-item ">
 			<button id="btn" href="./padan/index.html" class="hijau">Matching</button>

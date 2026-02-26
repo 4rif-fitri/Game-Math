@@ -29,13 +29,14 @@ body{
 	font-family: aaa, Arial, Helvetica, sans-serif;
 }
 .hijau{
-	background-color: lightgreen;
-}
-.blue{
 	background-color: lightskyblue;
+	}
+	.blue{
+		background-color: lightgreen;
 }
 .red{
-	background-color: lightcoral;
+		background-color: lightgoldenrodyellow;
+
 }
 
 	</style>

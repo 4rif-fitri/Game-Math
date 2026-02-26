@@ -119,6 +119,7 @@ let handlePickNumber = (e) => {
 	count.pickNum++
 
 	if (count.pickNum == 2) {
+
 		let n1 = parseInt(array.numMethodpick[0])
 		let n2 = parseInt(array.numMethodpick[1])
 		let base
@@ -150,8 +151,8 @@ let handlePickNumber = (e) => {
 				// console.log("Jawapan:", e.detail.ans);
 				stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 				stackGame.elementPick[0].remove()
-				unPickMethod()
 			});
+			unPickMethod()
 
 		} else if (stackGame.pickMethod == "Borrow") {
 
@@ -167,30 +168,32 @@ let handlePickNumber = (e) => {
 					// console.log("Jawapan:", e.detail.ans);
 					stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 					stackGame.elementPick[0].remove()
-					unPickMethod()
 				});
+				unPickMethod()
 
 			} else {
 				updateTextMessage(`upss Tak Boleh, ${max} perlukan ${pelangkap} untuk jadi ${base}`)
 			}
 			unPickMethod()
 
-		} else if (stackGame.pickMethod == "Padan") {
+		} else if (stackGame.pickMethod == "Matching") {
 			console.log(n1 + n2);
 			let sum = n1 + n2
-			if (sum % 5 == 0 && sum >= 5 && sum <= 30) {
+			console.log(sum % 5 == 0);
+			
+			if (sum % 5 == 0) {
 				localStorage.setItem("padan", JSON.stringify({
 					"array": array.numMethodpick,
 				}))
-
+				
 				initMatching()
 				
 				window.addEventListener("modulSelesai", (e) => {
 					// console.log("Jawapan:", e.detail.ans);
 					stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 					stackGame.elementPick[0].remove()
-					unPickMethod()
 				});
+				unPickMethod()
 
 			} else {
 				updateTextMessage(`upss ${max} dan ${min} dapat nombor tak mudah`)
@@ -202,8 +205,6 @@ let handlePickNumber = (e) => {
 }
 
 let handleMethodPick = (e) => {
-console.log(e);
-
 	let elemant = e.target
 
 	if (stackGame.idMethod == elemant.dataset.id) {
@@ -219,7 +220,7 @@ console.log(e);
 
 	if (stackGame.pickMethod == "Tambah Biasa") updateTextMessage(`teknik tambah bisas`)
 	else if (stackGame.pickMethod == "Borrow") updateTextMessage(`teknik digunkan untuk permudahkan bantuk nombor kepada 10 or 20 or 30`)
-	else if (stackGame.pickMethod == "Padan") updateTextMessage(`teknik untuk dapatkan dua nombor yang hasilnya nombor mudah`)
+	else if (stackGame.pickMethod == "Matching") updateTextMessage(`teknik untuk dapatkan dua nombor yang hasilnya nombor mudah`)
 
 	ui.boxSoalan.forEach(box => addListerner(box, "click", handlePickNumber))
 }
@@ -236,7 +237,6 @@ let homePage = () => {
 }
 
 let initSandBox = () => {
-	console.log("sand");
 	renderGame()
 	
 	ui.boxSoalan = document.querySelectorAll(".boxSoalan")

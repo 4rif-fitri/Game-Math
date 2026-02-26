@@ -1,4 +1,5 @@
 let items = document.querySelectorAll("#padan-item");
+let moniter3 = document.getElementById("moniter3")
 let count = {
 	hint: 5,
 	currentQuestion: 1,
@@ -13,8 +14,8 @@ let flag = {
 let number1 = 0
 let number2 = 0;
 let sum = 0;
-let moniter3 = document.getElementById("moniter3")
 
+let delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 let addClass = (element, classs) => {
 	element.classList.add(classs);
@@ -29,14 +30,19 @@ let removeListerner = (element, event, func) => {
 	element.removeEventListener(event, func);
 };
 
-let delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+let reshuffleArray = (arr) => {
+	for (let i = arr.length - 1; i > 0; i--) {
+		let j = Math.floor(Math.random() * (i + 1));
+		[arr[i], arr[j]] = [arr[j], arr[i]];
+	}
+	return arr;
+};
 
-let updateMoniter = () => {
+let render = () => {
 	removeClass(document.getElementById("pop-up-padan"), "hide")
 	document.getElementById("moniter1").textContent = number1
 	document.getElementById("moniter2").textContent = number2
 }
-
 
 let handleSum = async (e) => {
 	if (flag.isPick) return
@@ -73,7 +79,6 @@ let handleSum = async (e) => {
 	flag.isPick = false
 }
 
-
 let back = () => {
 	items.forEach(item => removeListerner(item, "click", handleSum))
 	newReset()
@@ -98,7 +103,6 @@ let newReset = () => {
 	removeClass(moniter3, "salah")
 	removeClass(moniter3, "kuning")
 	moniter3.textContent = ``
-
 }
 
 let newHint = () => {
@@ -116,23 +120,21 @@ let newHint = () => {
 	})
 }
 
-let reshuffleArray = (arr) => {
-	for (let i = arr.length - 1; i > 0; i--) {
-		let j = Math.floor(Math.random() * (i + 1));
-		[arr[i], arr[j]] = [arr[j], arr[i]];
-	}
-	return arr;
-};
+
 
 let initNormal = () => {
 	document.getElementById("pop-up-padan").style.display = "flex"
+	moniter3 = document.getElementById("moniter3")
+	items = document.querySelectorAll("#padan-item");
+
+
 	let data = JSON.parse(localStorage.getItem("normal"))
 
 	number1 = parseInt(data.array[0])
 	number2 = parseInt(data.array[1])
 	sum = number1 + number2
 
-	updateMoniter()
+	render()
 
 	let y = []
 	y[0] = sum

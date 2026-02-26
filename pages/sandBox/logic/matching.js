@@ -2,6 +2,8 @@ let arrayPoll = [1, 2, 3, 4, 5];
 let lineArray = [];
 
 let items = document.querySelectorAll("#padan-item");
+let moniter3 = document.getElementById("moniter3")
+
 let idElement = 0;
 let isPickBoth = false;
 let isPickFirst = false;
@@ -26,8 +28,6 @@ let number1 = 0
 let number2 = 0;
 let sum = 0;
 
-// let popUp = document.querySelector(".popUpContainer");
-let popUpContainer2 = document.querySelector(".popUpContainer2");
 
 let reshuffleArray = (arr) => {
 	for (let i = arr.length - 1; i > 0; i--) {
@@ -86,30 +86,7 @@ let unSelect = (elementt) => {
 	isPickFirst = false;
 };
 
-let updateStatus = () => {
-	document.getElementById("lavel").textContent = `${count.currentQuestion}/${count.totalQuestion}`
-	document.getElementById("hintCount").textContent = `${count.hint}`;
-	document.getElementById("score").textContent = `${count.currentScore}/${count.totalScore}`;
-};
 let delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-let coutWin = async () => {
-	count.currentScore++
-	updateStatus()
-
-
-	if (count.currentScore == count.totalScore) {
-		flag.isPickHint = true
-		await delay(2000)
-		if (count.currentQuestion == count.totalQuestion) {
-			popUpContainer2.style.display = "flex";
-		} else {
-			nextSoalan()
-		}
-		flag.isPickHint = false
-	}
-};
-
 
 let checkChoice = async () => {
 	if (number1 == 0 || number2 == 0) return;
@@ -204,97 +181,6 @@ let handlePickBox = (e) => {
 	flag.isPickHint = false
 };
 
-let HandleReset = () => {
-	if (flag.isPickReset) return;
-
-	items.forEach((item) =>
-		item.classList.contains("pilih") ? removeClass(item, "pilih") : "",
-	);
-	items.forEach((item) =>
-		item.classList.contains("salah") ? removeClass(item, "salah") : "",
-	);
-	items.forEach((item) =>
-		item.classList.contains("betul") ? removeClass(item, "betul") : "",
-	);
-
-	idElement = null
-
-	newBox()
-};
-
-let newBox = () => {
-	let container = document.querySelector(".soalan-group");
-	container.innerHTML = ``;
-	for (let index = 0; index < lineArray.length; index++) {
-		container.innerHTML += `
-	 	<div data-id="${index}" class="soalan-item">
-			<span class="number">${lineArray[index]}</span>
-			<!-- <span class="symbol">+</span> -->
-		</div>
-	 `;
-	}
-
-	idElement = 0;
-	flag.isPickReset = false;
-	flag.isPickHint = false;
-	sum = 0;
-	count.currentScore = 0
-	isPickBoth = false;
-	isPickFirst = false;
-	element1 = element2 = null;
-	number1 = number2 = 0;
-
-	items = ``;
-	items = document.querySelectorAll(".soalan-item");
-
-	updateStatus()
-
-	items.forEach((item) => removeListerner(item, "click", handlePickBox));
-	items.forEach((item) => addListerner(item, "click", handlePickBox));
-}
-let handleHint = () => {
-
-	if (count.hint == 0 || flag.isPickHint) return;
-	flag.isPickHint = true
-	count.hint--;
-	updateStatus()
-
-	let no1, no2, predik = 0;
-	let e1, e2;
-	let isFirts = false;
-	let itemm = document.querySelectorAll(".soalan-item");
-
-	itemm.forEach((itm) => {
-		let no = parseInt(itm.querySelector(".number").textContent);
-		console.log(no);
-		if (no != 10) {
-			if (!isFirts) {
-				no1 = no;
-				predik = 10 - no1;
-				e1 = itm;
-				isFirts = true;
-			} else {
-				if (no == predik) {
-					no2 = no;
-					e2 = itm;
-					console.log({ no1 });
-					console.log({ no2 });
-				}
-			}
-		}
-	});
-	addClass(e1, "borderDash");
-	addClass(e2, "borderDash");
-};
-
-let nextSoalan = () => {
-	items = document.querySelectorAll(".soalan-item");
-	count.currentQuestion++
-	updateStatus()
-	randomSoalan()
-	newBox();
-}
-
 let randomSoalan = () => {
 	reshuffleArray(arrayPoll);
 	push(lineArray, arrayPoll);
@@ -307,15 +193,10 @@ let randomSoalan = () => {
 	}
 }
 
-let updateMoniter = () => {
+let render = () => {
 	removeClass(document.getElementById("pop-up-padan"), "hide")
-
 	document.getElementById("moniter1").textContent = number1
 	document.getElementById("moniter2").textContent = number2
-}
-
-let fleg = {
-	isPick: false,
 }
 
 let handleSum = async (e) => {
@@ -353,7 +234,6 @@ let handleSum = async (e) => {
 	flag.isPick = false
 }
 
-let moniter3 = document.getElementById("moniter3")
 
 let back = () => {
 	newReset()
@@ -399,14 +279,16 @@ let y = []
 
 let initMatching = () => {
 	let data = JSON.parse(localStorage.getItem("padan"))
+	items = document.querySelectorAll("#padan-item");
+	popUpContainer2 = document.querySelector(".popUpContainer2");
+	moniter3 = document.getElementById("moniter3")
 
 	randomSoalan()
-	// updateStatus()
 	number1 = parseInt(data.array[0])
 	number2 = parseInt(data.array[1])
 	sum = number1 + number2
 
-	updateMoniter()
+	render()
 
 	y[0] = sum
 	for (let index = 1; index < 6; index++) {
