@@ -334,6 +334,8 @@ let initMatching = () => {
 	items.forEach((item) => addListerner(item, "click", handlePickBox));
 	addListerner(document.getElementById("reset"), "click", HandleReset);
 	addListerner(document.getElementById("hint"), "click", handleHint);
-	addListerner(document.getElementById("home"),"click",homePage)
+	document.querySelectorAll("#home").forEach(btn => {
+		addListerner(btn, "click", homePage)
+	})
 } 
 export {initMatching}

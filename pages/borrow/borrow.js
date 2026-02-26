@@ -706,7 +706,9 @@ let initBorrow = () => {
 
 	addListerner(document.getElementById("hint"), "click", hint);
 	addListerner(document.getElementById("reset"), "click", reset);
-	addListerner(document.getElementById("home"), "click", homePage)
+	document.querySelectorAll("#home").forEach(btn => {
+		addListerner(btn, "click", homePage)
+	})
 
 }
 export {initBorrow}

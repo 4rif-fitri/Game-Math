@@ -244,7 +244,9 @@ let initSandBox = () => {
 
 	random()
 	ui.btnsMethed.forEach(btn => btn.addEventListener("click", handleMethodPick))
-	addListerner(document.getElementById("home"), "click", homePage)
+	document.querySelectorAll("#home").forEach(btn => {
+		addListerner(btn, "click", homePage)
+	})
 }
 
 export { initSandBox }

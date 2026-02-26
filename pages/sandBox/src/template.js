@@ -176,7 +176,7 @@ let temp = `
 			</article>
 
 			<article class="option-action">
-				<button data-id="1" id="padan">Padan</button>
+				<button data-id="1" id="padan">Matching</button>
 				<button data-id="2" id="borrow">Borrow</button>
 				<button data-id="3" id="biasa">Tambah Biasa</button>
 			</article>
