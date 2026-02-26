@@ -117,8 +117,7 @@ let temp = `
 		</div>
 
 		<header>
-			<a href="../index.html" class="btn-back btn">
-				< Back Home</a>
+			<button id="home" class="btn-back btn"> Back Home</button>
 					<div class="title">
 						<center>
 							<h1>Sand Box</h1>

@@ -31,4 +31,5 @@ let app = () => {
 
 	document.querySelectorAll("#btn").forEach(btn => btn.addEventListener("click", handleClick))
 }
+export {app}
 document.addEventListener("DOMContentLoaded", () => app())

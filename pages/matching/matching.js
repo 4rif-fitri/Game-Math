@@ -1,6 +1,6 @@
+import { app } from "../app.js";
 import { style } from "./src/style.js"
 import { template } from "./src/template.js"
-
 
 let arrayPoll = [1, 2, 3, 4, 5];
 let lineArray = [];
@@ -319,6 +319,10 @@ let renderMatching = () => {
 	app.insertAdjacentHTML("beforeend", t);
 }
 
+let homePage = () => {
+	app()
+}
+
 let initMatching = () => {
 	renderMatching()
 	popUpContainer2 = document.querySelector(".popUpContainer2");
@@ -330,6 +334,6 @@ let initMatching = () => {
 	items.forEach((item) => addListerner(item, "click", handlePickBox));
 	addListerner(document.getElementById("reset"), "click", HandleReset);
 	addListerner(document.getElementById("hint"), "click", handleHint);
-
+	addListerner(document.getElementById("home"),"click",homePage)
 } 
 export {initMatching}

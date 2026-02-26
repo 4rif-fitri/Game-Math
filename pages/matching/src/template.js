@@ -12,12 +12,11 @@ let template = `
 		<div class="popUpContainer2">
 			<div class="popUpCard">
 				<h2>Tamat</h2>
-				<a href="">Back</a>
+				<buttom id="home">Back</buttom>
 			</div>
 		</div>
 		<header>
-			<a href="../index.html" class="btn-back btn">
-				< Back Home</a>
+			<button id="home" class="btn-back btn"> Back Home</button>
 					<div class="title">
 						<center>
 							<h1>Teknik Padan</h1>

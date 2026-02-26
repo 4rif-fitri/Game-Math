@@ -2,6 +2,8 @@ import { initBorrow } from "./logic/borrow.js";
 import { initMatching } from "./logic/matching.js";
 import { initNormal } from "./logic/normal.js";
 
+import { app } from "../app.js";
+
 import { style } from "./src/style.js"
 import { temp } from "./src/template.js"
 
@@ -229,6 +231,10 @@ let renderGame = () => {
 	app.insertAdjacentHTML("beforeend", t);
 }
 
+let homePage = () => {
+	app()
+}
+
 let initSandBox = () => {
 	console.log("sand");
 	renderGame()
@@ -238,6 +244,7 @@ let initSandBox = () => {
 
 	random()
 	ui.btnsMethed.forEach(btn => btn.addEventListener("click", handleMethodPick))
+	addListerner(document.getElementById("home"), "click", homePage)
 }
 
 export { initSandBox }

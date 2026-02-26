@@ -1,6 +1,8 @@
 import { style } from "./src/style.js"
 import { template } from "./src/template.js"
 
+import { app } from "../app.js";
+
 let reshuffleArray = (arr) => {
 	for (let i = arr.length - 1; i > 0; i--) {
 		let j = Math.floor(Math.random() * (i + 1));
@@ -680,6 +682,10 @@ let renderGame = () => {
 	app.insertAdjacentHTML("beforeend", t);
 }
 
+let homePage = () => {
+	app()
+}
+
 let initBorrow = () => {
 	renderGame()
 
@@ -700,5 +706,7 @@ let initBorrow = () => {
 
 	addListerner(document.getElementById("hint"), "click", hint);
 	addListerner(document.getElementById("reset"), "click", reset);
+	addListerner(document.getElementById("home"), "click", homePage)
+
 }
 export {initBorrow}
