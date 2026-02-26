@@ -39,9 +39,9 @@ let count = {
 	pickNum: 0,
 	hint: 7,
 	currentQuestion: 1,
-	totalQuestion: 3,
+	totalQuestion: 2,
 	currentScore: 0,
-	totalScore: 3,
+	totalScore: 2,
 }
 let flag = {
 	isPickMethod: false,
@@ -102,6 +102,22 @@ let unPickNumber = (element) => {
 	array.numMethodpick[0] = null
 }
 
+let handlModulSelesai = (e) => {
+	// console.log("Jawapan:", e.detail.ans);
+	stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
+	stackGame.elementPick[0].remove()
+	count.hint = e.detail.hint
+	updateStatus()
+	newSetGame()
+
+	window.removeEventListener("modulSelesai", handlModulSelesai);
+}
+let modulCancel = (e) => {
+	count.hint = e.detail.hint
+	updateStatus()
+	window.removeEventListener("modulSelesai", modulCancel);
+}
+
 let handlePickNumber = (e) => {
 	let element = e.target
 
@@ -152,20 +168,10 @@ let handlePickNumber = (e) => {
 
 			initNormal()
 
-			window.addEventListener("modulSelesai", (e) => {
-				// console.log("Jawapan:", e.detail.ans);
-				stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
-				stackGame.elementPick[0].remove()
-				count.hint = e.detail.hint
-				updateStatus()
-				newSetGame()
-			});
-			window.addEventListener("modulCancel", (e) => {
-				count.hint = e.detail.hint
-				updateStatus()
-			})
-
-
+			window.addEventListener("modulSelesai",handlModulSelesai);
+			window.addEventListener("modulCancel", modulCancel)
+			
+			
 			unPickMethod()
 
 		} else if (stackGame.pickMethod == "Borrow") {
@@ -179,20 +185,9 @@ let handlePickNumber = (e) => {
 
 				initBorrow()
 
-				window.addEventListener("modulSelesai", (e) => {
-					// console.log("Jawapan:", e.detail.ans);
-					stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
-					stackGame.elementPick[0].remove()
-					count.hint = e.detail.hint
-					updateStatus()
-					newSetGame()
-				});
-
-				window.addEventListener("modulCancel", (e) => {
-					count.hint = e.detail.hint
-					updateStatus()
-				})
-
+				window.addEventListener("modulSelesai", handlModulSelesai);
+				window.addEventListener("modulCancel", modulCancel)
+				
 				unPickMethod()
 
 			} else {
@@ -211,20 +206,9 @@ let handlePickNumber = (e) => {
 				
 				initMatching()
 				
-				window.addEventListener("modulSelesai", (e) => {
-					// console.log("Jawapan:", e.detail.ans);
-					stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
-					stackGame.elementPick[0].remove()
-					count.hint = e.detail.hint
-					updateStatus()
-					newSetGame()
-				});
-
-				window.addEventListener("modulCancel", (e) => {
-					count.hint = e.detail.hint
-					updateStatus()
-				})
-
+				window.addEventListener("modulSelesai", handlModulSelesai);
+				window.addEventListener("modulCancel", modulCancel)
+				
 				unPickMethod()
 
 			} else {
@@ -236,19 +220,74 @@ let handlePickNumber = (e) => {
 }
 let delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+let updateBox = () => {
+	document.querySelectorAll(".simbol").forEach(elemnt => elemnt.remove())
+	ui.boxSoalan.forEach((element,index) => {
+		if(index != 0){
+			let span = document.createElement("span")
+			span.classList.add("simbol")
+			span.textContent = "+"
+			element.appendChild(span)
+		}
+	})
+}
 
-
-let newSetGame = () => {
-	count.currentScore++
+let removeAddBox = () => {
+	document.querySelector(".soalan-group").innerHTML = ``
+	let tem = ``
 	
-	if(count.currentScore == count.totalScore){
-		console.log("win");
-
-		updateStatus()
-
-	}else if(count.currentQuestion == count.totalQuestion){
-
+	for (let index = 1; index <= 3; index++) {
+		if (index != 1){
+			tem += `
+			    <p class="soalan-item boxSoalan" data-id="${index}">
+				    <span class="number">19</span>
+				    <span class="simbol">+</span>
+			    </p>
+		    `
+		}else{
+			tem += `
+			    <p class="soalan-item boxSoalan" data-id="${index}">
+				    <span class="number">19</span>
+			    </p>`
+		}
 	}
+	document.querySelector(".soalan-group").innerHTML = tem
+}
+
+let startNewGame = () => {
+	count.currentQuestion++
+
+	if (count.currentQuestion > count.totalQuestion) {
+		console.log("win");
+		document.querySelector(".popUpContainer2").style.display = "flex";
+		return
+	}
+	updateStatus()
+	removeAddBox()
+	ui.boxSoalan = document.querySelectorAll(".boxSoalan")
+	random()
+	updateStatus()
+}
+
+let newSetGame = async () => {
+	count.currentScore++
+
+	console.log(count.currentScore);
+	console.log(count.totalScore);
+	if (count.currentScore == count.totalScore) {
+		
+		updateStatus() 
+		count.currentScore = 0
+
+		await delay(1500)
+
+		startNewGame()
+
+		updateTextMessage(`Wah dah pandai, lagi!`)
+		return
+	}
+	updateStatus()
+	updateBox()
 }
 
 let handleMethodPick = (e) => {
@@ -284,9 +323,9 @@ let homePage = () => {
 }
 
 let updateStatus = () => {
-	document.getElementById("score").textContent = `${count.currentQuestion}/${count.totalQuestion}`
+	document.getElementById("lavel").textContent = `${count.currentQuestion}/${count.totalQuestion}`
 	document.getElementById("hintCount").textContent = `${count.hint}`
-	document.getElementById("lavel").textContent = `${count.currentScore}/${count.totalScore}`
+	document.getElementById("score").textContent = `${count.currentScore}/${count.totalScore}`
 }
 
 let initSandBox = () => {
@@ -297,6 +336,7 @@ let initSandBox = () => {
 
 	random()
 	updateStatus()
+
 	ui.btnsMethed.forEach(btn => btn.addEventListener("click", handleMethodPick))
 	document.querySelectorAll("#home").forEach(btn => {
 		addListerner(btn, "click", homePage)

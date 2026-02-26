@@ -142,7 +142,7 @@ let temp = `
 						<article class="btn btn-score">
 							<span>
 								<center>
-									<p>Score</p>
+									<p>Step</p>
 									<h2 id="score">0/3</h2>
 								</center>
 							</span>
