@@ -202,7 +202,7 @@ let handleTotal = async (e) => {
 
 		addClass(element, "betul");
 		addClass(stateGame.boxSelected, "betul");
-		await delay(2000);
+		await delay(1000);
 		removeClass(element, "betul");
 		removeClass(stateGame.boxSelected, "borderDash");	
 

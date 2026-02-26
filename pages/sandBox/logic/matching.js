@@ -203,7 +203,7 @@ let handleSum = async (e) => {
 	if (numberpick == (number1 + number2)) {
 		addClass(element, "betul")
 		addClass(moniter3, "betul")
-		await delay(1500)
+		await delay(1000)
 		back()
 	} else {
 		addClass(element, "salah")

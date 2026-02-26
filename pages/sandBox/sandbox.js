@@ -157,8 +157,8 @@ let handlePickNumber = (e) => {
 				stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 				stackGame.elementPick[0].remove()
 				count.hint = e.detail.hint
-				count.currentQuestion++
 				updateStatus()
+				newSetGame()
 			});
 			window.addEventListener("modulCancel", (e) => {
 				count.hint = e.detail.hint
@@ -183,10 +183,9 @@ let handlePickNumber = (e) => {
 					// console.log("Jawapan:", e.detail.ans);
 					stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 					stackGame.elementPick[0].remove()
-					console.log(count.hint);
 					count.hint = e.detail.hint
-					count.currentScore++
 					updateStatus()
+					newSetGame()
 				});
 
 				window.addEventListener("modulCancel", (e) => {
@@ -217,9 +216,8 @@ let handlePickNumber = (e) => {
 					stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 					stackGame.elementPick[0].remove()
 					count.hint = e.detail.hint
-					console.log(count.hint);
-					count.currentScore++
 					updateStatus()
+					newSetGame()
 				});
 
 				window.addEventListener("modulCancel", (e) => {
@@ -234,6 +232,22 @@ let handlePickNumber = (e) => {
 			}
 			unPickMethod()
 		}
+	}
+}
+let delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+
+
+let newSetGame = () => {
+	count.currentScore++
+	
+	if(count.currentScore == count.totalScore){
+		console.log("win");
+
+		updateStatus()
+
+	}else if(count.currentQuestion == count.totalQuestion){
+
 	}
 }
 
@@ -270,9 +284,9 @@ let homePage = () => {
 }
 
 let updateStatus = () => {
-	document.getElementById("lavel").textContent = `${count.currentQuestion}/${count.totalQuestion}`
+	document.getElementById("score").textContent = `${count.currentQuestion}/${count.totalQuestion}`
 	document.getElementById("hintCount").textContent = `${count.hint}`
-	document.getElementById("score").textContent = `${count.currentScore}/${count.totalScore}`
+	document.getElementById("lavel").textContent = `${count.currentScore}/${count.totalScore}`
 }
 
 let initSandBox = () => {
@@ -287,5 +301,4 @@ let initSandBox = () => {
 		addListerner(btn, "click", homePage)
 	})
 }
-
 export { initSandBox }
