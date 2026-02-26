@@ -23,22 +23,26 @@ let removeClass = (element, classs) => { element.classList.remove(classs) };
 let addListerner = (element, event, func) => { element.addEventListener(event, func) };
 let removeListerner = (element, event, func) => { element.removeEventListener(event, func) };
 
-
 let ui = {
 	boxSoalan: document.querySelectorAll(".boxSoalan"),
 	btnsMethed: document.querySelectorAll(".option-action button"),
 }
-
 let array = {
-	randomPoll: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+	randomPoll: [9,1,5],
+	// randomPoll: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+	// randomPoll: [1, 2, 3, 4, 5, 6, 7, 8, 9],
 	pollQuestion: [],
 
 	numMethodpick: [],
 }
 let count = {
-	pickNum: 0
+	pickNum: 0,
+	hint: 7,
+	currentQuestion: 1,
+	totalQuestion: 3,
+	currentScore: 0,
+	totalScore: 3,
 }
-
 let flag = {
 	isPickMethod: false,
 }
@@ -151,6 +155,7 @@ let handlePickNumber = (e) => {
 				// console.log("Jawapan:", e.detail.ans);
 				stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 				stackGame.elementPick[0].remove()
+				count.currentQuestion++
 			});
 			unPickMethod()
 
@@ -168,6 +173,7 @@ let handlePickNumber = (e) => {
 					// console.log("Jawapan:", e.detail.ans);
 					stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 					stackGame.elementPick[0].remove()
+					count.currentQuestion++
 				});
 				unPickMethod()
 
@@ -192,6 +198,7 @@ let handlePickNumber = (e) => {
 					// console.log("Jawapan:", e.detail.ans);
 					stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 					stackGame.elementPick[0].remove()
+					count.currentQuestion++
 				});
 				unPickMethod()
 
@@ -199,7 +206,7 @@ let handlePickNumber = (e) => {
 				updateTextMessage(`upss ${max} dan ${min} dapat nombor tak mudah`)
 			}
 			unPickMethod()
-
+			updateStatus()
 		}
 	}
 }
@@ -236,9 +243,15 @@ let homePage = () => {
 	app()
 }
 
+let updateStatus = () => {
+	document.getElementById("lavel").textContent = `${count.currentQuestion}/${count.totalQuestion}`
+	document.getElementById("hintCount").textContent = `${count.hint}`
+	document.getElementById("score").textContent = `${count.currentScore}/${count.totalScore}`
+}
+
 let initSandBox = () => {
 	renderGame()
-	
+	updateStatus()
 	ui.boxSoalan = document.querySelectorAll(".boxSoalan")
 	ui.btnsMethed = document.querySelectorAll(".option-action button")
 

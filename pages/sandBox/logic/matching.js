@@ -1,5 +1,6 @@
 let arrayPoll = [1, 2, 3, 4, 5];
 let lineArray = [];
+let arrayRandom = []
 
 let items = document.querySelectorAll("#padan-item");
 let moniter3 = document.getElementById("moniter3")
@@ -12,10 +13,6 @@ let lastId = null
 
 let count = {
 	hint: 5,
-	currentQuestion: 1,
-	totalQuestion: 3,
-	currentScore: 0,
-	totalScore: 3,
 }
 let flag = {
 	isPickHint: false,
@@ -27,7 +24,6 @@ let element2 = null;
 let number1 = 0
 let number2 = 0;
 let sum = 0;
-
 
 let reshuffleArray = (arr) => {
 	for (let i = arr.length - 1; i > 0; i--) {
@@ -181,18 +177,6 @@ let handlePickBox = (e) => {
 	flag.isPickHint = false
 };
 
-let randomSoalan = () => {
-	reshuffleArray(arrayPoll);
-	push(lineArray, arrayPoll);
-	reshuffleArray(lineArray);
-	reshuffleArray(lineArray);
-
-	for (let index = 0; index < items.length; index++) {
-		items[index].dataset.number = lineArray[index];
-		items[index].querySelector(".number").textContent = lineArray[index];
-	}
-}
-
 let render = () => {
 	removeClass(document.getElementById("pop-up-padan"), "hide")
 	document.getElementById("moniter1").textContent = number1
@@ -234,7 +218,6 @@ let handleSum = async (e) => {
 	flag.isPick = false
 }
 
-
 let back = () => {
 	newReset()
 	window.dispatchEvent(new CustomEvent("modulSelesai", {
@@ -275,22 +258,22 @@ let newHint = () => {
 	})
 }
 
-let y = []
 
 let initMatching = () => {
+	console.log("mach");
+	
 	let data = JSON.parse(localStorage.getItem("padan"))
 	items = document.querySelectorAll("#padan-item");
-	popUpContainer2 = document.querySelector(".popUpContainer2");
 	moniter3 = document.getElementById("moniter3")
-
-	randomSoalan()
+	
 	number1 = parseInt(data.array[0])
 	number2 = parseInt(data.array[1])
 	sum = number1 + number2
-
+	
 	render()
+	document.getElementById("pop-up-padan").style.display = "flex"
 
-	y[0] = sum
+	arrayRandom[0] = sum
 	for (let index = 1; index < 6; index++) {
 		let factor
 		if (index == 2) factor = -5
@@ -298,16 +281,15 @@ let initMatching = () => {
 		else if (index == 1) factor = (Math.random < 0.5) ? 15 : -15;
 		else if (index == 4) factor = -10
 		else if (index == 5) factor = +10
-		y[index] = sum + factor
+		arrayRandom[index] = sum + factor
 	}
-	reshuffleArray(y)
-	reshuffleArray(y)
-	reshuffleArray(y)
-	items.forEach((element, index) => element.querySelector(".number").textContent = y[index])
+	reshuffleArray(arrayRandom)
+	reshuffleArray(arrayRandom)
+	reshuffleArray(arrayRandom)
+	items.forEach((element, index) => element.querySelector(".number").textContent = arrayRandom[index])
 
 
 	items.forEach((item) => addListerner(item, "click", handleSum));
-	// addListerner(document.getElementById("reset"), "click", HandleReset);
 	addListerner(document.querySelector(".padan-hint"), "click", newHint);
 	addListerner(document.getElementById("close-padan"), "click", newReset)
 }
