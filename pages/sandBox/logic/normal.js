@@ -80,7 +80,8 @@ let back = () => {
 		detail: {
 			method: "borrow",
 			ans: (number1 + number2),
-			status: "complete"
+			status: "complete",
+			hint: countHint
 		}
 	}));
 }
@@ -97,12 +98,25 @@ let newReset = () => {
 	removeClass(moniter3, "salah")
 	removeClass(moniter3, "kuning")
 	moniter3.textContent = ``
+	
+}
+
+let cencal = () => {
+	newReset()
+	window.dispatchEvent(new CustomEvent("modulCancel", {
+		detail: {
+			method: "borrow",
+			status: "not complete",
+			hint: countHint
+		}
+	}));
 }
 
 let newHint = () => {
 	if (countHint == 0) return
 	countHint--
-
+	console.log(countHint);
+	
 	document.querySelector(".padan-hint").textContent = `(${countHint}) Hint`
 	let count = 0
 	items.forEach(element => {
@@ -156,6 +170,6 @@ let initNormal = () => {
 
 	items.forEach((item) => addListerner(item, "click", handleSum));
 	addListerner(document.querySelector(".padan-hint"), "click", newHint);
-	addListerner(document.getElementById("close-padan"), "click", newReset)
+	addListerner(document.getElementById("close-padan"), "click", cencal)
 }
 export { initNormal }

@@ -224,7 +224,8 @@ let back = () => {
 		detail: {
 			method: "borrow",
 			ans: (number1 + number2),
-			status: "complete"
+			status: "complete",
+			hint: countHint
 		}
 	}));
 }
@@ -260,7 +261,16 @@ let newHint = () => {
 		}
 	})
 }
-
+let cencal = () => {
+	newReset()
+	window.dispatchEvent(new CustomEvent("modulCancel", {
+		detail: {
+			method: "borrow",
+			status: "not complete",
+			hint: countHint
+		}
+	}));
+}
 let countHint
 let initMatching = () => {
 	console.log("mach");
@@ -295,6 +305,6 @@ let initMatching = () => {
 
 	items.forEach((item) => addListerner(item, "click", handleSum));
 	addListerner(document.querySelector(".padan-hint"), "click", newHint);
-	addListerner(document.getElementById("close-padan"), "click", newReset)
+	addListerner(document.getElementById("close-padan"), "click", cencal)
 }
 export { initMatching }

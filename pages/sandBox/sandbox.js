@@ -28,8 +28,8 @@ let ui = {
 	btnsMethed: document.querySelectorAll(".option-action button"),
 }
 let array = {
-	randomPoll: [9,1,5],
-	// randomPoll: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+	// randomPoll: [9,1,5],
+	randomPoll: [1, 2, 3, 4, 5, 6, 7, 8, 9],
 	// randomPoll: [1, 2, 3, 4, 5, 6, 7, 8, 9],
 	pollQuestion: [],
 
@@ -156,10 +156,15 @@ let handlePickNumber = (e) => {
 				// console.log("Jawapan:", e.detail.ans);
 				stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 				stackGame.elementPick[0].remove()
+				count.hint = e.detail.hint
 				count.currentQuestion++
-				count.currentScore++
 				updateStatus()
 			});
+			window.addEventListener("modulCancel", (e) => {
+				count.hint = e.detail.hint
+				updateStatus()
+			})
+
 
 			unPickMethod()
 
@@ -178,10 +183,17 @@ let handlePickNumber = (e) => {
 					// console.log("Jawapan:", e.detail.ans);
 					stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 					stackGame.elementPick[0].remove()
+					console.log(count.hint);
+					count.hint = e.detail.hint
 					count.currentScore++
-					count.currentQuestion++
 					updateStatus()
 				});
+
+				window.addEventListener("modulCancel", (e) => {
+					count.hint = e.detail.hint
+					updateStatus()
+				})
+
 				unPickMethod()
 
 			} else {
@@ -204,10 +216,17 @@ let handlePickNumber = (e) => {
 					// console.log("Jawapan:", e.detail.ans);
 					stackGame.elementPick[1].querySelector(".number").textContent = e.detail.ans
 					stackGame.elementPick[0].remove()
+					count.hint = e.detail.hint
+					console.log(count.hint);
 					count.currentScore++
-					count.currentQuestion++
 					updateStatus()
 				});
+
+				window.addEventListener("modulCancel", (e) => {
+					count.hint = e.detail.hint
+					updateStatus()
+				})
+
 				unPickMethod()
 
 			} else {
@@ -251,10 +270,6 @@ let homePage = () => {
 }
 
 let updateStatus = () => {
-	console.log(document.getElementById("lavel"));
-	console.log(document.getElementById("hintCount"));
-	console.log(document.getElementById("score"));
-	
 	document.getElementById("lavel").textContent = `${count.currentQuestion}/${count.totalQuestion}`
 	document.getElementById("hintCount").textContent = `${count.hint}`
 	document.getElementById("score").textContent = `${count.currentScore}/${count.totalScore}`

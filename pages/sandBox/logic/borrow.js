@@ -39,11 +39,10 @@ let addListerner = (element, event, func) => { element.addEventListener(event, f
 let removeListerner = (element, event, func) => { element.removeEventListener(event, func) };
 
 let updateTextMessage = (text) => {
-	document.getElementById("textMessage").textContent = text;
+	document.querySelector(".card-header-text p").textContent = text;
 };
 
 let delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 let flow = {
 	max: null,
 	min: null,
@@ -54,8 +53,6 @@ let flow = {
 	hasilActionMin: null,
 	jumlah: null,
 };
-
-
 let ui = {
 	boxsSoalan: document.querySelectorAll(".borrow-soalan"),
 	boxsAction: document.querySelectorAll(".borrow-action"),
@@ -64,8 +61,6 @@ let ui = {
 	choiseItems: document.querySelectorAll(".borrow-choice-item"),
 	choiseGroup: document.querySelector(".card-footer"),
 }
-
-
 let stateGame = {
 	base: 10,
 	number1: 0,
@@ -77,7 +72,6 @@ let stateGame = {
 	pointer: null,
 	statusGame: "",
 }
-
 let flag = {
 	isChoise: false,
 	isPickMax: true,
@@ -86,13 +80,6 @@ let flag = {
 	isDonePickBigger: false,
 	isPickHint: false
 };
-let count = {
-	hint: 5,
-	currentQuestion: 1,
-	totalQuestion: 5,
-	currentScore: 0,
-	totalScore: 6,
-}
 let step = {
 	actionMax: false,
 	actionMin: false,
@@ -101,49 +88,9 @@ let step = {
 	Total: false,
 };
 
-let tamat = () => {
-	document.querySelector(".popUpContainer2").style.display = "flex";
-};
-
-let nextQuestion = () => {
-
-	if (count.currentQuestion - 1 == count.totalQuestion) {
-		tamat()
-
-	} else {
-
-		count.currentScore = 0
-		console.log("win");
-
-		randomInit();
-		ramalan();
-		textNumberQuestion();
-		// next()
-		reset()
-	}
-}
-
-
-
-let updateStatus = () => {
-	document.getElementById("lavel").textContent = `${count.currentQuestion}/${count.totalQuestion}`
-	document.getElementById("hintCount").textContent = `${count.hint}`;
-	document.getElementById("score").textContent = `${count.currentScore}/${count.totalScore}`;
-	document.getElementById("hint").textContent = `(${count.hint}) Hint`
-};
-
-
-
 let randomInit = (arr) => {
 	stateGame.number1 = parseInt(arr.array[0])
 	stateGame.number2 = parseInt(arr.array[1])
-
-	// let arr = stateGame.arrayPoll
-	// reshuffleArray(arr);
-	// stateGame.number1 = arr[0];
-	// arr = arr.filter((num) => num !== stateGame.number1);
-	// reshuffleArray(arr);
-	// stateGame.number2 = arr[0];
 };
 
 let ramalan = () => {
@@ -166,8 +113,6 @@ let ramalan = () => {
 	flow.jumlah = flow.max + flow.min;
 
 };
-
-
 
 let pollTextSum = () => {
 	let picked = flow.jumlah;
@@ -215,9 +160,6 @@ let pollTextAction = () => {
 		available = available.filter((num) => num != chosen);
 
 	}
-	// console.log({available});
-	// console.log({stateGame.arrayChoice});
-
 	reshuffleArray(stateGame.arrayChoice);
 	reshuffleArray(stateGame.arrayChoice);
 	reshuffleArray(stateGame.arrayChoice);
@@ -230,14 +172,14 @@ let back = () => {
 		detail: {
 			method: "borrow",
 			ans: flow.jumlah,
-			status: "complete"
+			status: "complete",
+			hint: countHint,
 		}
 	}));
 
 	document.getElementById("pop-up-borrow").style.display = "none";
 	reset();
 }
-
 
 let handleTotal = async (e) => {
 	if (flag.isChoise) return;
@@ -262,21 +204,13 @@ let handleTotal = async (e) => {
 		addClass(stateGame.boxSelected, "betul");
 		await delay(2000);
 		removeClass(element, "betul");
-		removeClass(stateGame.boxSelected, "borderDash");
+		removeClass(stateGame.boxSelected, "borderDash");	
 
-		count.currentScore++;
-		updateStatus();
-		count.currentQuestion++;
+		ui.choiseItems.forEach((item) => removeListerner(item, "click", handleTotal),);
 
-		ui.choiseItems.forEach((item) =>
-			removeListerner(item, "click", handleTotal),
-		);
+		flag.isChoise = false;
+		back()
 
-		if (count.currentScore == count.totalScore) {
-			flag.isChoise = false;
-			// nextQuestion();
-			back()
-		}
 
 	} else {
 		addClass(element, "salah");
@@ -322,9 +256,7 @@ let handleSumBorrow = async (e) => {
 			ui.choiseItems.forEach((item) => removeListerner(item, "click", handleSumBorrow));
 
 			step.sumBorrowMin = true;
-
-			count.currentScore++;
-			updateStatus();
+			
 
 			initSumBorrow();
 
@@ -358,9 +290,7 @@ let handleSumBorrow = async (e) => {
 			flag.isStepSum = true;
 
 			step.Total = true
-
-			count.currentScore++;
-			updateStatus();
+			
 
 			initTotal();
 
@@ -402,9 +332,7 @@ let handleAction = async (e) => {
 		await delay(500);
 		removeClass(stateGame.boxSelected, "borderDash");
 		removeClass(element, "betul");
-
-		count.currentScore++;
-		updateStatus();
+		
 
 		if (flag.isPickMax) {
 			flag.isPickMax = false;
@@ -461,9 +389,6 @@ let handleChooseBigger = async (e) => {
 		flag.isDonePickBigger = true
 
 		step.actionMax = true;
-
-		count.currentScore++
-		updateStatus()
 
 		ui.choiseGroup.style.opacity = 1
 		initAction();
@@ -578,29 +503,22 @@ let initChooseBigger = () => {
 };
 
 let hint = () => {
-	if (!flag.isDonePickBigger || count.hint == 0 || flag.isPickHint || flag.isChoise) return
+	console.log(flag.isDonePickBigger);
+	console.log(countHint);
+	
+	
+	if (!flag.isDonePickBigger ||  countHint == 0 || flag.isChoise) return
 	flag.isPickHint = true
-	count.hint--
-	console.log("hint");
-	updateStatus()
+	countHint--
+	document.getElementById("hint").textContent = `(${countHint}) Hint`
+
 	let predict
 
-	if (step.Total) {
-		//actionMax
-		predict = flow.jumlah;
+	if (step.Total) 						predict = flow.jumlah; 
+	else if (step.sumBorrowMin) 				predict = flow.hasilActionMin;
+	else if (step.sumBorrowMax) 				predict = flow.hasilActionMax;
+	else if (step.actionMin || step.actionMax) 	predict = flow.borrow
 
-	} else if (step.sumBorrowMin) {
-		//actionMin
-		predict = flow.hasilActionMin;
-
-	} else if (step.sumBorrowMax) {
-		//sumBorrowMax
-		predict = flow.hasilActionMax;
-
-	} else if (step.actionMin || step.actionMax) {
-		predict = flow.borrow
-
-	}
 	console.log({ predict });
 
 	let pick = []
@@ -608,7 +526,7 @@ let hint = () => {
 	available = available.filter((num) => num != predict);
 
 	pick.push(predict)
-
+	
 	for (let index = 0; index < 2; index++) {
 		let randomIndex = Math.floor(Math.random() * available.length);
 		let randomValue = available[randomIndex];
@@ -669,6 +587,8 @@ let reset = () => {
 	ui.boxSum.classList.contains("borderDash") ? removeClass(ui.boxSum, "borderDash") : ""
 	ui.boxSum.querySelector(".number").textContent = ``;
 
+	ui.choiseItems.forEach((item) => removeClass(item,"kuning"));
+
 	ui.boxsSoalan.forEach(box => {
 		addClass(box, "pilih")
 		addClass(box, "borderDash");
@@ -687,9 +607,9 @@ let reset = () => {
 	flag.isDonePickBigger = false;
 	flag.isPickHint = false;
 
-	count.currentScore = 0,
 
-		step.actionMax = false
+
+	step.actionMax = false
 	step.actionMin = false;
 	step.sumBorrowMax = false;
 	step.sumBorrowMin = false;
@@ -702,15 +622,30 @@ let reset = () => {
 	ui.choiseItems.forEach((item) => removeListerner(item, "click", handleSumBorrow));
 	ui.choiseItems.forEach((item) => removeListerner(item, "click", handleTotal));
 
-	updateStatus();
+	ui.boxsSoalan = document.querySelectorAll(".borrow-soalan")
+	ui.boxsAction = document.querySelectorAll(".borrow-action")
+	ui.boxSum = document.querySelector(".borrow-total")
+	ui.boxSumAction = document.querySelectorAll(".borrow-sum-action")
+	ui.choiseItems = document.querySelectorAll(".borrow-choice-item")
+	ui.choiseGroup = document.querySelector(".card-footer")
+
+	document.getElementById("hint").textContent = `(${countHint}) Hint`
 	initChooseBigger()
 }
 
-let btnClose = () => {
+let cencal = () => {
 	document.getElementById("pop-up-borrow").style.display = "none"
 	reset()
+	window.dispatchEvent(new CustomEvent("modulCancel", {
+		detail: {
+			method: "borrow",
+			status: "not complete",
+			hint: countHint
+		}
+	}));
 }
 
+let countHint
 let initBorrow = () => {
 	ui.boxsSoalan = document.querySelectorAll(".borrow-soalan")
 	ui.boxsAction = document.querySelectorAll(".borrow-action")
@@ -723,10 +658,11 @@ let initBorrow = () => {
 	document.getElementById("pop-up-borrow").style.display = "flex"
 	let data = JSON.parse(localStorage.getItem("borrow"))
 	stateGame.base = data.base
-
+	countHint = data.hint
 	console.log(data);
 
-	updateStatus()
+	document.getElementById("hint").textContent = `(${countHint}) Hint`
+
 	randomInit(data);
 	ramalan();
 
@@ -738,6 +674,6 @@ let initBorrow = () => {
 
 	addListerner(document.getElementById("hint"), "click", hint);
 	addListerner(document.getElementById("reset"), "click", reset);
-	addListerner(document.getElementById("borrow-close"), "click", btnClose);
+	addListerner(document.getElementById("borrow-close"), "click", cencal);
 }
 export {initBorrow}
