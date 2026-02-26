@@ -181,6 +181,7 @@ let pollTextSum = () => {
 };
 
 let pollTextSumBorrow = () => {
+	let picked
 	if (flag.isPickMax) {
 		picked = flow.hasilActionMax;
 	} else {
