@@ -79,7 +79,7 @@ let number1 = 0
 let number2 = 0;
 let boxSelected;
 
-let arrayPoll = [6, 7, 8, 9];
+let arrayPoll = [6,7,8,9];
 let arrayBase10Poll = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 let arrayChoice = [];
 
