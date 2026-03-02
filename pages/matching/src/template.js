@@ -19,7 +19,7 @@ let template = `
 			<button id="home" class="btn-back btn"> Back Home</button>
 					<div class="title">
 						<center>
-							<h1>Teknik Padan</h1>
+							<h1>Teknik Matching</h1>
 							<p>teknik yang digunakan untuk cari dua nombor yang hasilnya 10</p>
 						</center>
 					</div>
