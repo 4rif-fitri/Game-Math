@@ -2,7 +2,7 @@ import { initBorrow } from "./logic/borrow.js";
 import { initMatching } from "./logic/matching.js";
 import { initNormal } from "./logic/normal.js";
 
-import { app } from "../app.js";
+import { app } from "../index/app.js";
 
 import { style } from "./src/style.js"
 import { temp } from "./src/template.js"
@@ -163,15 +163,15 @@ let handlePickNumber = (e) => {
 			localStorage.setItem("normal", JSON.stringify({
 				"array": array.numMethodpick,
 				"base": n1 + n2 < 20 ? 10 : 20,
-				"hint":count.hint,
+				"hint": count.hint,
 			}))
 
 			initNormal()
 
-			window.addEventListener("modulSelesai",handlModulSelesai);
+			window.addEventListener("modulSelesai", handlModulSelesai);
 			window.addEventListener("modulCancel", modulCancel)
-			
-			
+
+
 			unPickMethod()
 
 		} else if (stackGame.pickMethod == "Borrow") {
@@ -187,7 +187,7 @@ let handlePickNumber = (e) => {
 
 				window.addEventListener("modulSelesai", handlModulSelesai);
 				window.addEventListener("modulCancel", modulCancel)
-				
+
 				unPickMethod()
 
 			} else {
@@ -197,18 +197,18 @@ let handlePickNumber = (e) => {
 
 		} else if (stackGame.pickMethod == "Matching") {
 			let sum = n1 + n2
-			
+
 			if (sum % 5 == 0) {
 				localStorage.setItem("padan", JSON.stringify({
 					"array": array.numMethodpick,
 					"hint": count.hint,
 				}))
-				
+
 				initMatching()
-				
+
 				window.addEventListener("modulSelesai", handlModulSelesai);
 				window.addEventListener("modulCancel", modulCancel)
-				
+
 				unPickMethod()
 
 			} else {
@@ -222,8 +222,8 @@ let delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 let updateBox = () => {
 	document.querySelectorAll(".simbol").forEach(elemnt => elemnt.remove())
-	ui.boxSoalan.forEach((element,index) => {
-		if(index != 0){
+	ui.boxSoalan.forEach((element, index) => {
+		if (index != 0) {
 			let span = document.createElement("span")
 			span.classList.add("simbol")
 			span.textContent = "+"
@@ -235,16 +235,16 @@ let updateBox = () => {
 let removeAddBox = () => {
 	document.querySelector(".soalan-group").innerHTML = ``
 	let tem = ``
-	
+
 	for (let index = 1; index <= 3; index++) {
-		if (index != 1){
+		if (index != 1) {
 			tem += `
 			    <p class="soalan-item boxSoalan" data-id="${index}">
 				    <span class="number">19</span>
 				    <span class="simbol">+</span>
 			    </p>
 		    `
-		}else{
+		} else {
 			tem += `
 			    <p class="soalan-item boxSoalan" data-id="${index}">
 				    <span class="number">19</span>
@@ -275,8 +275,8 @@ let newSetGame = async () => {
 	console.log(count.currentScore);
 	console.log(count.totalScore);
 	if (count.currentScore == count.totalScore) {
-		
-		updateStatus() 
+
+		updateStatus()
 		count.currentScore = 0
 
 		await delay(1500)
@@ -312,7 +312,7 @@ let handleMethodPick = (e) => {
 }
 
 let renderGame = () => {
-	let app =document.getElementById("app")
+	let app = document.getElementById("app")
 	let t = style
 	t += temp
 	app.insertAdjacentHTML("beforeend", t);

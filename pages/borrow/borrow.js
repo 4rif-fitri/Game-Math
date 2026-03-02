@@ -1,7 +1,7 @@
 import { style } from "./src/style.js"
 import { template } from "./src/template.js"
 
-import { app } from "../app.js";
+import { app } from "../index/app.js";
 
 let reshuffleArray = (arr) => {
 	for (let i = arr.length - 1; i > 0; i--) {

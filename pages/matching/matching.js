@@ -1,4 +1,4 @@
-import { app } from "../app.js";
+import { app } from "../index/app.js";
 import { style } from "./src/style.js"
 import { template } from "./src/template.js"
 

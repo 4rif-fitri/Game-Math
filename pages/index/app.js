@@ -1,6 +1,6 @@
-import { initSandBox } from "./sandBox/sandbox.js"
-import { initMatching } from "./matching/matching.js"
-import { initBorrow } from "./borrow/borrow.js"
+import { initSandBox } from "../sandBox/sandbox.js"
+import { initMatching } from "../matching/matching.js"
+import { initBorrow } from "../borrow/borrow.js"
 
 import { temp } from "./src/template.js"
 import { style } from "./src/style.js"
@@ -13,11 +13,11 @@ let handleClick = (e) => {
 	choice = elemant.textContent
 	elemantApp.innerHTML = ``
 
-	if (choice == "Matching"){
+	if (choice == "Matching") {
 		initMatching()
-	} else if (choice == "Borrow"){
+	} else if (choice == "Borrow") {
 		initBorrow()
-	} else if (choice == "Sand Box"){
+	} else if (choice == "Sand Box") {
 		initSandBox()
 	}
 	console.log(choice);
@@ -31,5 +31,5 @@ let app = () => {
 
 	document.querySelectorAll("#btn").forEach(btn => btn.addEventListener("click", handleClick))
 }
-export {app}
+export { app }
 document.addEventListener("DOMContentLoaded", () => app())
