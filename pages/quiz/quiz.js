@@ -206,11 +206,11 @@ let setup = () => {
 	})
 }
 let renderQuiz = () => {
-	let app = document.getElementById("app")
-	app.innerHTML = null
+	let root = document.getElementById("app")
+	root.innerHTML = null
 	let t = style
 	t += template
-	app.insertAdjacentHTML("beforeend", t);
+	root.insertAdjacentHTML("beforeend", t);
 }
 
 let homePage = () => {
