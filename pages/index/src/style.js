@@ -8,11 +8,11 @@ body{
 }
 .card-container{
 	width: min(90vw,20rem);
-	height: 25rem;
+	height: 30rem;
 	border: 3px solid black;
 	aspect-ratio: 1/1;
 	display: grid;
-	grid-template-rows: repeat(4,1fr);
+	grid-template-rows: repeat(5,1fr);
 	border-radius: 14px;
 }
 .cart-item{
@@ -21,23 +21,25 @@ body{
 	justify-content: center;
 }
 .cart-item > button{
+	width: 15rem;
 	padding: 1rem 4rem;
 	border: 3px solid black;
 	text-decoration: none;
 	border-radius: 14px;
 	font-family: aaa, Arial, Helvetica, sans-serif;
 }
-.hijau{
+.Matching{
 	background-color: lightskyblue;
-	}
-	.blue{
-		background-color: lightgreen;
 }
-.red{
-		background-color: lightgoldenrodyellow;
-
+.Borrow{
+	background-color: lightgreen;
 }
-
+.SandBox{
+	background-color: lightgoldenrodyellow;
+}
+.Quiz{
+	background-color: yellow;
+}
 	</style>
 `
 

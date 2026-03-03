@@ -1,6 +1,7 @@
 import { initSandBox } from "../sandBox/sandbox.js"
 import { initMatching } from "../matching/matching.js"
 import { initBorrow } from "../borrow/borrow.js"
+import { initQuiz } from "../quiz/quiz.js"
 
 import { temp } from "./src/template.js"
 import { style } from "./src/style.js"
@@ -19,8 +20,10 @@ let handleClick = (e) => {
 		initBorrow()
 	} else if (choice == "Sand Box") {
 		initSandBox()
+	} else if (choice == "Quiz (new)") {
+		initQuiz()
 	}
-	console.log(choice);
+	// console.log(choice);
 }
 
 let app = () => {
