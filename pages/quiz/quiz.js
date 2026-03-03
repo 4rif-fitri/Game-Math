@@ -190,7 +190,7 @@ let setup = () => {
 		element.classList.remove("betul")
 	})
 
-	document.querySelectorAll(".soalan-item").forEach(element => element.addEventListener("click", handlePick))
+	document.querySelectorAll(".soalan-item").forEach(element => element.removeEventListener("click", handlePick))
 	
 	updateBoard()
 	stateGame.number1 = random2to9()
@@ -214,6 +214,8 @@ let renderQuiz = () => {
 }
 
 let homePage = () => {
+
+	clearInterval(stateGame.idTimer)
 
 	ui.boxHasil = null
 	ui.boxMoniter1 = null
@@ -261,10 +263,6 @@ let initQuiz = () => {
 	setup()
 	
 	ui.bar.style.opacity = 0
-	document.querySelectorAll(".soalan-item").forEach((element, index) => {
-		element.textContent = array.boxChoise[index]
-		element.addEventListener("click", handlePick)
-	})
 
 	document.getElementById("GiveUp").addEventListener("click", handleGiveUp)
 	document.querySelectorAll("#back").forEach(btn =>  btn.addEventListener("click",homePage))
