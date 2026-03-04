@@ -54,7 +54,7 @@ let template = `
 		<main>
 			<article class="message-container">
 				<article class="message-group">
-					<H4 id="textMessage">Pilih Dua Nombor Yang Hasillya 10</H4>
+					<H4 id="textMessage">Pilih Dua Nombor Yang Hasilya 10</H4>
 				</article>
 			</article>
 			<article class="moniter-container">
