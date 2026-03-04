@@ -116,8 +116,6 @@ let nextQuestion = () => {
 		tamat()
 
 	} else {
-
-
 		count.currentScore = 0
 		console.log("win");
 
@@ -127,7 +125,6 @@ let nextQuestion = () => {
 		updateStatus()
 		textNumberQuestion()
 		console.log(flow);
-		
 	}
 }
 
@@ -142,11 +139,16 @@ let updateStatus = () => {
 
 
 let randomInit = () => {
-	reshuffleArray(arrayPoll);
-	number1 = arrayPoll[0];
-	arrayPoll = arrayPoll.filter((num) => num !== number1);
-	reshuffleArray(arrayPoll);
-	number2 = arrayPoll[0];
+	let arr = [...arrayPoll]
+	reshuffleArray(arr);
+	reshuffleArray(arr);
+	reshuffleArray(arr);
+	number1 = arr[0];
+	arr = arr.filter((num) => num !== number1);
+	reshuffleArray(arr);
+	reshuffleArray(arr);
+	reshuffleArray(arr);
+	number2 = arr[0];
 };
 
 let ramalan = () => {
