@@ -121,8 +121,13 @@ let nextQuestion = () => {
 		count.currentScore = 0
 		console.log("win");
 
-		// next()
 		reset()
+		randomInit();
+		ramalan();
+		updateStatus()
+		textNumberQuestion()
+		console.log(flow);
+		
 	}
 }
 
@@ -660,7 +665,7 @@ let reset = () => {
 	// count.hint = 5
 	count.currentScore = 0,
 
-		step.actionMax = false
+	step.actionMax = false
 	step.actionMin = false;
 	step.sumBorrowMax = false;
 	step.sumBorrowMin = false;
@@ -672,6 +677,8 @@ let reset = () => {
 	choiseItems.forEach((item) => removeListerner(item, "click", handleAction));
 	choiseItems.forEach((item) => removeListerner(item, "click", handleSumBorrow));
 	choiseItems.forEach((item) => removeListerner(item, "click", handleTotal));
+	
+
 
 	updateStatus();
 	initChooseBigger()
